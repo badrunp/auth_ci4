@@ -1,4 +1,4 @@
-<?= $this->extend('layouts/layout'); ?>
+<?= $this->extend('layouts/guest'); ?>
 
 <?= $this->section('content'); ?>
 
@@ -27,34 +27,42 @@
                     <div class="login-title">
                         <h2 class="text-center text-primary">Login To DeskApp</h2>
                     </div>
-                    <form>
-                        <!-- <div class="select-role">
-                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                <label class="btn active">
-                                    <input type="radio" name="options" id="admin">
-                                    <div class="icon"><img src="<?= base_url(); ?>/images/briefcase.svg" class="svg" alt=""></div>
-                                    <span>I'm</span>
-                                    Manager
-                                </label>
-                                <label class="btn">
-                                    <input type="radio" name="options" id="user">
-                                    <div class="icon"><img src="<?= base_url(); ?>/images/person.svg" class="svg" alt=""></div>
-                                    <span>I'm</span>
-                                    Employee
-                                </label>
-                            </div>
-                        </div> -->
+                    <?php if (session()->getFlashdata('message')) : ?>
+                        <div class="alert alert-success">
+                            <?= session()->getFlashdata('message'); ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (session()->getFlashdata('error')) : ?>
+                        <div class="alert alert-danger">
+                            <?= session()->getFlashdata('error'); ?>
+                        </div>
+                    <?php endif; ?>
+
+
+                    <form action="<?= base_url('/login'); ?>" method="POST">
+                        <?= csrf_field(); ?>
                         <div class="input-group custom">
-                            <input type="text" class="form-control form-control-lg" placeholder="Username">
-                            <div class="input-group-append custom">
-                                <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
+                            <input type="email" name="email" value="<?= old('email'); ?>" class="form-control form-control-lg <?= $validation->getError('email') ? 'is-invalid' : ''; ?>" placeholder="Email">
+                            <div class="invalid-feedback">
+                                <?= $validation->getError('email'); ?>
                             </div>
+                            <?php if (!$validation->getError('email')) : ?>
+                                <div class="input-group-append custom">
+                                    <span class="input-group-text"><i class="icon-copy dw dw-email"></i></span>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="input-group custom">
-                            <input type="password" class="form-control form-control-lg" placeholder="**********">
-                            <div class="input-group-append custom">
-                                <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
+                            <input type="password" name="password" value="<?= old('password'); ?>" class="form-control form-control-lg <?= $validation->getError('password') ? 'is-invalid' : ''; ?>" placeholder="**********">
+                            <div class="invalid-feedback">
+                                <?= $validation->getError('password'); ?>
                             </div>
+                            <?php if (!$validation->getError('password')) : ?>
+                                <div class="input-group-append custom">
+                                    <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="row pb-30">
                             <div class="col-6">

@@ -27,6 +27,15 @@ class CreateUsersTable extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 150
             ],
+            'role' => [
+                'type' => 'INT',
+                'constraint' => 2, 
+            ],
+            'image' => [
+                'type' => 'VARCHAR',
+                'constraint' => 100,
+                'null' => true
+            ],
             'remember_token' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255,

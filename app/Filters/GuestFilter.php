@@ -25,7 +25,10 @@ class GuestFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        //
+        if(session()->get('id') && session()->get('role')){
+            return redirect()->back();
+        }
+
     }
 
     /**

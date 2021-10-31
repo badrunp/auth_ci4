@@ -1,4 +1,4 @@
-<?= $this->extend('layouts/layout'); ?>
+<?= $this->extend('layouts/guest'); ?>
 
 <?= $this->section('content'); ?>
 
@@ -27,40 +27,69 @@
                     <div class="login-title">
                         <h2 class="text-center text-primary">Register To DeskApp</h2>
                     </div>
-                    <form>
-                        <!-- <div class="select-role">
+
+                    <?php if (session()->getFlashdata('error')) : ?>
+                        <div class="alert alert-danger">
+                            <?= session()->getFlashdata('error'); ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <form action="<?= base_url('/register'); ?>" method="POST">
+                        <?= csrf_field(); ?>
+                        <div class="select-role">
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                <label class="btn active">
-                                    <input type="radio" name="options" id="admin">
+                                <label class="btn <?= old('role') == 1 ? 'active' : ''; ?> <?= $validation->getError('role') ? 'error' : ''; ?>">
+                                    <input type="radio" name="role" value="1" id="admin" <?= old('role') == 1 ? 'checked' : ''; ?>>
                                     <div class="icon"><img src="<?= base_url(); ?>/images/briefcase.svg" class="svg" alt=""></div>
                                     <span>I'm</span>
-                                    Manager
+                                    Admin
                                 </label>
-                                <label class="btn">
-                                    <input type="radio" name="options" id="user">
+                                <label class="btn <?= old('role') == 2 ? 'active' : ''; ?> <?= $validation->getError('role') ? 'error' : ''; ?>">
+                                    <input type="radio" name="role" value="2" id="user" <?= old('role') == 2 ? 'checked' : ''; ?>>
                                     <div class="icon"><img src="<?= base_url(); ?>/images/person.svg" class="svg" alt=""></div>
                                     <span>I'm</span>
-                                    Employee
+                                    User
                                 </label>
                             </div>
-                        </div> -->
+                            <?php if ($validation->getError('role')) : ?>
+                                <div class="text-danger" style="margin-left: -5px;">
+                                    <small><?= $validation->getError('role'); ?></small>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+
                         <div class="input-group custom">
-                            <input type="text" name="name" class="form-control form-control-lg" placeholder="Name">
-                            <div class="input-group-append custom">
-                                <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
+                            <input type="text" name="name" value="<?= old('name'); ?>" class="form-control form-control-lg <?= $validation->getError('name') ? 'is-invalid' : ''; ?>" placeholder="Name">
+                            <div class="invalid-feedback">
+                                <?= $validation->getError('name'); ?>
                             </div>
+                            <?php if (!$validation->getError('name')) : ?>
+                                <div class="input-group-append custom">
+                                    <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="input-group custom">
-                            <input type="email" name="email" class="form-control form-control-lg" placeholder="Email">
-                            <div class="input-group-append custom">
-                                <span class="input-group-text"><i class="icon-copy dw dw-email"></i></span>
+                            <input type="email" name="email" value="<?= old('email'); ?>" class="form-control form-control-lg <?= $validation->getError('email') ? 'is-invalid' : ''; ?>" placeholder="Email">
+                            <div class="invalid-feedback">
+                                <?= $validation->getError('email'); ?>
                             </div>
+                            <?php if (!$validation->getError('email')) : ?>
+                                <div class="input-group-append custom">
+                                    <span class="input-group-text"><i class="icon-copy dw dw-email"></i></span>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="input-group custom">
-                            <input type="password" name="password" class="form-control form-control-lg" placeholder="**********">
-                            <div class="input-group-append custom">
-                                <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
+                            <input type="password" name="password" value="<?= old('password'); ?>" class="form-control form-control-lg <?= $validation->getError('password') ? 'is-invalid' : ''; ?>" placeholder="**********">
+                            <div class="invalid-feedback">
+                                <?= $validation->getError('password'); ?>
                             </div>
+                            <?php if (!$validation->getError('password')) : ?>
+                                <div class="input-group-append custom">
+                                    <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
+                                </div>
+                            <?php endif; ?>
                         </div>
                         <div class="row">
                             <div class="col-sm-12">

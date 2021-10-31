@@ -4,7 +4,7 @@
 <head>
 	<!-- Basic Page Info -->
 	<meta charset="utf-8">
-	<title>DeskApp - Bootstrap Admin Dashboard HTML Template</title>
+	<title><?= $title; ?></title>
 
 	<!-- Site favicon -->
 	<link rel="apple-touch-icon" sizes="180x180" href="<?= base_url(); ?>/images/apple-touch-icon.png">
@@ -36,7 +36,7 @@
     <?= $this->renderSection('content'); ?>
 
 	<!-- js -->
-	<script src="<?= base_url(); ?>/scripts/core.js"></script>
+	<script src="<?= base_url(); ?>/scripts/corea.js"></script>
 	<script src="<?= base_url(); ?>/scripts/script.min.js"></script>
 	<script src="<?= base_url(); ?>/scripts/process.js"></script>
 	<script src="<?= base_url(); ?>/scripts/layout-settings.js"></script>
