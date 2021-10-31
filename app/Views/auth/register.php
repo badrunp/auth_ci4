@@ -45,7 +45,7 @@
                             </div>
                         </div> -->
                         <div class="input-group custom">
-                            <input type="text" name="username" class="form-control form-control-lg" placeholder="Username">
+                            <input type="text" name="name" class="form-control form-control-lg" placeholder="Name">
                             <div class="input-group-append custom">
                                 <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
                             </div>
