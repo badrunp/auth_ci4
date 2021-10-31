@@ -4,7 +4,7 @@
 <head>
 	<!-- Basic Page Info -->
 	<meta charset="utf-8">
-	<title>DeskApp - Bootstrap Admin Dashboard HTML Template</title>
+	<title>Dashboard | <?= $title ?? ''; ?></title>
 
 	<!-- Site favicon -->
 	<link rel="apple-touch-icon" sizes="180x180" href="<?= base_url(); ?>/images/apple-touch-icon.png">
@@ -42,7 +42,7 @@
 						<span class="user-icon">
 							<img src="<?= base_url(); ?>/images/photo1.jpg" alt="">
 						</span>
-						<span class="user-name">Ross C. Lopez</span>
+						<span class="user-name"><?= auth('name') ?></span>
 					</a>
 					<div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 						<a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
@@ -78,6 +78,14 @@
 					<li>
 						<a href="<?= base_url('/'); ?>" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
+						</a>
+					</li>
+                    <li>
+						<div class="dropdown-divider"></div>
+					</li>
+					<li>
+						<a href="<?= base_url('/logout'); ?>" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-logout"></span><span class="mtext">Logout</span>
 						</a>
 					</li>
 				</ul>

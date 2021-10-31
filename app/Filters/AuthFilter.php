@@ -25,10 +25,22 @@ class AuthFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (!session()->get('id') && !session()->get('role')) {
+        $user = session()->get('user');
+
+        if (!$user) {
             return redirect()->to('login')->with('error', 'you must be login!');
         }
+
+        $this->authenticate($user);
     }
+
+    public function authenticate($user){
+        helper('auth_helper');
+
+        setAuth($user);
+    }
+
+
 
     /**
      * Allows After filters to inspect and modify the response
