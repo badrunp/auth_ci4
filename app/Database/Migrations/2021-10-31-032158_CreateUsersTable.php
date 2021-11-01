@@ -10,8 +10,8 @@ class CreateUsersTable extends Migration
     {
         $this->forge->addField([
             'id' => [
-                'type' => 'BIGINT',
-                'constraint' => 20,
+                'type' => 'INT',
+                'constraint' => 10,
                 'unsigned' => true,
                 'auto_increment' => true
             ],
@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             ],
             'role' => [
                 'type' => 'INT',
-                'constraint' => 2, 
+                'unsigned' => true, 
             ],
             'image' => [
                 'type' => 'VARCHAR',
@@ -56,11 +56,13 @@ class CreateUsersTable extends Migration
         ]);
 
         $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('role', 'user_role', 'id');
         $this->forge->createTable('users');
     }
 
     public function down()
     {
+        $this->forge->dropForeignKey('users', 'role');
         $this->forge->dropTable('users');
     }
 }
