@@ -25,19 +25,35 @@ class AuthFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        $user = session()->get('user');
+        $id = session()->get('id');
+        $role = session()->get('role');
 
-        if (!$user) {
+        if (!$id && !$role) {
             return redirect()->to('login');
         }
 
-        $this->authenticate($user);
+        $this->authenticate($id);
     }
 
-    public function authenticate($user){
+    public function authenticate($id){
         helper('auth_helper');
 
-        setAuth($user);
+        $db = db_connect();
+
+        $data = $db->table('users')->select([
+            'users.id',
+            'users.name',
+            'users.email',
+            'users.role',
+            'user_role.name as role_name',
+            'users.image',
+            'users.remember_token',
+            'users.verified_at',
+            'users.created_at',
+            'users.updated_at'
+        ])->join('user_role', 'users.role = user_role.id')->where(['users.id' => $id])->get()->getRowArray();
+        
+        setAuth($data);
     }
 
 

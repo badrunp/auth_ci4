@@ -1,11 +1,11 @@
 <?php 
  
- $data = session()->get('user') ?? [];
+ $data = [];
 
-function auth($key){
+function auth($key = false){
     global $data;
 
-    return $data[$key];
+    return $key == false ? $data : $data[$key];
 }
 
 function setAuth($users = []){

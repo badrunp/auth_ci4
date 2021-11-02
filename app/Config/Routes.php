@@ -35,6 +35,9 @@ $routes->setAutoRoute(true);
 $routes->group('', ['filter' => 'auth'], function() use ($routes){
     $routes->get('/', 'Dashboard::index');
     $routes->get('/logout', 'Auth::logout');
+
+    $routes->get('/user/profile', 'User::profile');
+    $routes->post('/user/profile/update', 'User::update');
 });
 
 $routes->group('', ['filter' => 'guest'], function () use ($routes) {

@@ -47,18 +47,8 @@ class Auth extends BaseController
         if($user){
             if(password_verify($password, $user['password'])){
 
-                $data = $this->user->select([
-                    'name',
-                    'email',
-                    'role',
-                    'image',
-                    'remember_token',
-                    'verified_at',
-                    'created_at',
-                    'updated_at'
-                ])->find($user['id']);
-                
-                session()->set('user', $data);
+                session()->set('id', $user['id']);
+                session()->set('role', $user['role']);
 
                 return redirect()->to('/');
 
@@ -115,7 +105,8 @@ class Auth extends BaseController
                 'name' => $name,
                 'email' => $email,
                 'password' => password_hash($password, PASSWORD_DEFAULT),
-                'role' => $role
+                'role' => $role,
+                'image' => 'default.png'
             ];
 
             $this->user->insert($data);
