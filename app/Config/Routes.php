@@ -38,6 +38,20 @@ $routes->group('', ['filter' => 'auth'], function() use ($routes){
 
     $routes->get('/user/profile', 'User::profile');
     $routes->post('/user/profile/update', 'User::update');
+
+    $routes->get('/role', 'Role::index');
+    $routes->get('/role/create', 'Role::create');
+    $routes->post('/role/store', 'Role::store');
+    $routes->get('/role/delete/(:num)', 'Role::delete/$1');
+    $routes->get('/role/edit/(:num)', 'Role::edit/$1');
+    $routes->get('/role/update/(:num)', 'Role::update/$1');
+
+    $routes->get('/submenu', 'Submenu::index');
+    $routes->get('/submenu/create', 'Submenu::create');
+    $routes->post('/submenu/store', 'Submenu::store');
+    $routes->get('/submenu/delete/(:num)', 'Submenu::delete/$1');
+    $routes->get('/submenu/edit/(:num)', 'Submenu::edit/$1');
+    $routes->get('/submenu/update/(:num)', 'Submenu::update/$1');
 });
 
 $routes->group('', ['filter' => 'guest'], function () use ($routes) {
