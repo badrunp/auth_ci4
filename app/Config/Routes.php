@@ -52,6 +52,11 @@ $routes->group('', ['filter' => 'menu'], function () use ($routes) {
     $routes->get('/submenu/delete/(:num)', 'Submenu::delete/$1');
     $routes->get('/submenu/edit/(:num)', 'Submenu::edit/$1');
     $routes->get('/submenu/update/(:num)', 'Submenu::update/$1');
+
+    $routes->get('/admin/user', 'User::index');
+    $routes->get('/admin/user/create', 'User::create');
+    $routes->post('/admin/user/store', 'User::store');
+    $routes->post('/admin/user/delete/(:num)', 'User::delete/$1');
 });
 
 $routes->group('', ['filter' => 'guest'], function () use ($routes) {

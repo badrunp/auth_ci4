@@ -37,7 +37,7 @@
                         <form action="<?= base_url('/role/store'); ?>" method="POST">
                             <?= csrf_field(); ?>
                             <div class="form-group row">
-                                <label class="col-sm-12 col-md-2 col-form-label">Text</label>
+                                <label class="col-sm-12 col-md-2 col-form-label">Name</label>
                                 <div class="col-sm-12 col-md-10">
                                     <input class="form-control <?= $validate->getError('name') ? 'is-invalid' : ''; ?>" type="text" name="name" placeholder="Name" value="<?= old('name'); ?>">
                                     <div class="invalid-feedback">
