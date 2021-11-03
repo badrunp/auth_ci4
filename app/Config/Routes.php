@@ -32,13 +32,13 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
-$routes->group('', ['filter' => 'auth'], function() use ($routes){
-    $routes->get('/', 'Dashboard::index');
-    $routes->get('/logout', 'Auth::logout');
+$routes->get('/', 'Dashboard::index');
+$routes->get('/logout', 'Auth::logout');
 
-    $routes->get('/user/profile', 'User::profile');
-    $routes->post('/user/profile/update', 'User::update');
+$routes->get('/user/profile', 'User::profile');
+$routes->post('/user/profile/update', 'User::update');
 
+$routes->group('', ['filter' => 'menu'], function () use ($routes) {
     $routes->get('/role', 'Role::index');
     $routes->get('/role/create', 'Role::create');
     $routes->post('/role/store', 'Role::store');

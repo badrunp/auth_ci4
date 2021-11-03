@@ -4,6 +4,7 @@ namespace Config;
 
 use App\Filters\AuthFilter;
 use App\Filters\GuestFilter;
+use App\Filters\MenuFilter;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
@@ -22,7 +23,8 @@ class Filters extends BaseConfig
         'toolbar'  => DebugToolbar::class,
         'honeypot' => Honeypot::class,
         'guest' => GuestFilter::class,
-        'auth' =>  AuthFilter::class
+        'auth' =>  AuthFilter::class,
+        'menu' => MenuFilter::class
     ];
 
     /**
@@ -33,8 +35,9 @@ class Filters extends BaseConfig
      */
     public $globals = [
         'before' => [
-            // 'honeypot',
-            // 'csrf',
+            'honeypot',
+            'csrf',
+            'auth' => ['except' => ['login', 'register']]
         ],
         'after' => [
             'toolbar',

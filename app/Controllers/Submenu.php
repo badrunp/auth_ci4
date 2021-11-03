@@ -70,7 +70,7 @@ class Submenu extends BaseController {
     {
 
         if($id == '4'){
-            return redirect()->back()->with('error', 'No edited is submenu!');
+            return redirect()->back()->with('error', 'No edited is submenu !');
         }
 
         $data = [
