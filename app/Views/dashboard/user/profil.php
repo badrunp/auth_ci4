@@ -48,13 +48,16 @@
                             <div class="tab height-100-p">
                                 <ul class="nav nav-tabs customtab" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#setting" role="tab">Settings</a>
+                                        <a class="nav-link <?= session()->getFlashdata('is_updatepassword') ? '' : 'active'; ?> " data-toggle="tab" href="#setting" role="tab">Settings</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link <?= session()->getFlashdata('is_updatepassword') ? 'active' : ''; ?> " data-toggle="tab" href="#updatepassword" role="tab">Update Password</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">
                                     <!-- Setting Tab start -->
 
-                                    <div class="tab-pane fade show active height-100-p" id="setting" role="tabpanel">
+                                    <div class="tab-pane fade <?= session()->getFlashdata('is_updatepassword') ? '' : 'show active'; ?> height-100-p" id="setting" role="tabpanel">
                                         <div class="profile-setting">
 
 
@@ -71,6 +74,13 @@
                                                         <li class="weight-500 col-md-12">
                                                             <div class="alert alert-success">
                                                                 <?= session()->getFlashdata('message'); ?>
+                                                            </div>
+                                                        </li>
+                                                    <?php endif; ?>
+                                                    <?php if (session()->getFlashdata('error')) : ?>
+                                                        <li class="weight-500 col-md-12">
+                                                            <div class="alert alert-danger">
+                                                                <?= session()->getFlashdata('error'); ?>
                                                             </div>
                                                         </li>
                                                     <?php endif; ?>
@@ -99,6 +109,55 @@
                                                 <ul class="profile-edit-list row">
                                                     <li class="weight-500 col-md-6">
                                                         <button type="submit" class="btn btn-primary">Update Profil</button>
+                                                    </li>
+                                                </ul>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade <?= session()->getFlashdata('is_updatepassword') ? 'show active' : ''; ?> height-100-p" id="updatepassword" role="tabpanel">
+                                        <div class="profile-setting">
+
+                                            <form action="<?= esc(base_url('user/profile/password')); ?>" method="POST" enctype="multipart/form-data">
+                                                <ul class="profile-edit-list row">
+                                                    <?php if ($validation->getErrors()) : ?>
+                                                        <li class="weight-500 col-md-12">
+                                                            <div class="alert alert-danger">
+                                                                <?= $validation->listErrors(); ?>
+                                                            </div>
+                                                        </li>
+                                                    <?php endif; ?>
+                                                    <?php if (session()->getFlashdata('message')) : ?>
+                                                        <li class="weight-500 col-md-12">
+                                                            <div class="alert alert-success">
+                                                                <?= session()->getFlashdata('message'); ?>
+                                                            </div>
+                                                        </li>
+                                                    <?php endif; ?>
+                                                    <?php if (session()->getFlashdata('error')) : ?>
+                                                        <li class="weight-500 col-md-12">
+                                                            <div class="alert alert-danger">
+                                                                <?= session()->getFlashdata('error'); ?>
+                                                            </div>
+                                                        </li>
+                                                    <?php endif; ?>
+                                                    <li class="weight-500 col-md-6">
+                                                        <!-- <h4 class="text-blue h5 mb-20">Edit Your Personal Setting</h4> -->
+                                                        <div class="form-group">
+                                                            <label>Current Password</label>
+                                                            <input class="form-control form-control-lg" name="currentpassword" type="password" value="<?= old('updatepassword'); ?>">
+                                                        </div>
+                                                    </li>
+                                                    <li class="weight-500 col-md-6">
+                                                        <!-- <h4 class="text-blue h5 mb-20">Edit Social Media links</h4> -->
+                                                        <div class="form-group">
+                                                            <label>New Password</label>
+                                                            <input class="form-control form-control-lg" name="password" type="password" value="<?= old('password'); ?>">
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <ul class="profile-edit-list row">
+                                                    <li class="weight-500 col-md-6">
+                                                        <button type="submit" class="btn btn-primary">Update Password</button>
                                                     </li>
                                                 </ul>
                                             </form>

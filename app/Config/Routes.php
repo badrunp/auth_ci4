@@ -37,6 +37,7 @@ $routes->get('/logout', 'Auth::logout');
 
 $routes->get('/user/profile', 'User::profile');
 $routes->post('/user/profile/update', 'User::update');
+$routes->post('/user/profile/password', 'User::updatepassword');
 
 $routes->group('', ['filter' => 'menu'], function () use ($routes) {
     $routes->get('/role', 'Role::index');

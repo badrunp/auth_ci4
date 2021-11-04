@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use CodeIgniter\CodeIgniter;
+use CodeIgniter\Exceptions\PageNotFoundException;
 
 class User extends BaseController
 {
@@ -138,8 +140,8 @@ class User extends BaseController
     {
         $role = $this->request->getPost('role');
         $image = $this->request->getPost('image');
-        
-        if($role && $image){
+
+        if ($role && $image) {
             if ($role == 1) {
                 return redirect()->back()->with('error', 'No deleted is user!');
             } else {
@@ -152,11 +154,59 @@ class User extends BaseController
 
                 $this->user->delete($id);
             }
-        }else{
+        } else {
             return redirect()->back()->with('error', 'No deleted is user!');
         }
 
 
         return redirect()->to('admin/user')->with('message', 'Delete role successfuly');
+    }
+
+    public function updatepassword()
+    {
+
+        if (count(auth()) > 0) {
+            if (!$this->validate([
+                'currentpassword' => 'required|min_length[3]',
+                'password' => 'required|min_length[3]'
+            ])) {
+                return redirect()->back()->withInput()->with('is_updatepassword', true);
+            }
+
+            $currentpassword = $this->request->getPost('currentpassword');
+            $password = $this->request->getPost('password');
+
+            $user = $this->user->where(['id' => auth('id')])->get()->getRowArray();
+            if ($user) {
+
+                if (password_verify($currentpassword, $user['password'])) {
+
+                    if (password_verify($password, $user['password'])) {
+
+                        return redirect()->back()->with('error', 'New password is not same this current password')->with('is_updatepassword', true);
+                    } else {
+                        
+                        $this->user->update(auth('id'), [
+                            'password' => password_hash($password, PASSWORD_DEFAULT)
+                        ]);
+                        
+                        return redirect()->back()->with('message', 'Update password successfully')->with('is_updatepassword', true);
+
+                    }
+                } else {
+
+                    return redirect()->back()->with('error', 'Your current password id wrong!')->with('is_updatepassword', true);
+
+                }
+            } else {
+
+                throw new PageNotFoundException();
+
+            }
+        }else{
+            
+            throw new PageNotFoundException();
+
+        }
     }
 }
