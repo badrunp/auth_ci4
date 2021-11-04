@@ -135,6 +135,7 @@
 	<!-- js -->
 	<script src="<?= base_url(); ?>/scripts/core.js"></script>
 	<script src="<?= base_url(); ?>/scripts/script.min.js"></script>
+	<script src="<?= base_url(); ?>/scripts/script.js"></script>
 	<script src="<?= base_url(); ?>/scripts/process.js"></script>
 	<script src="<?= base_url(); ?>/scripts/layout-settings.js"></script>
 	<script src="<?= base_url(); ?>/src/plugins/jQuery-Knob-master/jquery.knob.min.js"></script>

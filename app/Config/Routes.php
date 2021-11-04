@@ -40,6 +40,7 @@ $routes->post('/user/profile/update', 'User::update');
 
 $routes->group('', ['filter' => 'menu'], function () use ($routes) {
     $routes->get('/role', 'Role::index');
+    $routes->post('/role/menuaccess', 'Role::updatemenuaccess');
     $routes->get('/role/create', 'Role::create');
     $routes->post('/role/store', 'Role::store');
     $routes->get('/role/delete/(:num)', 'Role::delete/$1');

@@ -58,7 +58,7 @@
                                         <th scope="row"><?= $i++; ?></th>
                                         <td><?= $menu['title']; ?></td>
                                         <td>
-                                            cek
+                                            <input type="checkbox" class="menuaccess" data-id="<?= $role['id']; ?>" data-menuid="<?= $menu['id']; ?>" name="access" <?= in_array($menu['id'], $accessArr) ? 'checked' : '' ?>>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
