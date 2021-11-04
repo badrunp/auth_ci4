@@ -9,12 +9,12 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
                         <div class="title">
-                            <h4>Role</h4>
+                            <h4>Menu Access</h4>
                         </div>
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="<?= base_url('/'); ?>">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Role</li>
+                                <li class="breadcrumb-item active" aria-current="page">Menu Access</li>
                             </ol>
                         </nav>
                     </div>
@@ -27,10 +27,7 @@
                     <div class="pd-20 card-box">
                         <div class="clearfix mb-20">
                             <div class="pull-left">
-                                <h4 class="text-blue h4">Role Table</h4>
-                            </div>
-                            <div class="pull-right">
-                                <a href="/role/create" class="btn btn-primary btn-sm scroll-click">Add Role</a>
+                                <h4 class="text-blue h4">Role : <?= $role['name']; ?></h4>
                             </div>
                         </div>
 
@@ -56,14 +53,12 @@
                             </thead>
                             <tbody>
                                 <?php $i = 1; ?>
-                                <?php foreach($roles as $role): ?>
+                                <?php foreach($menus as $menu): ?>
                                     <tr>
                                         <th scope="row"><?= $i++; ?></th>
-                                        <td><?= $role['name']; ?></td>
+                                        <td><?= $menu['title']; ?></td>
                                         <td>
-                                            <a href="/role/menuaccess/<?= $role['id']; ?>" class="badge badge-warning">Menu Access</a>
-                                            <a href="/role/delete/<?= $role['id']; ?>" onclick="confirm('Are your sure?') ? true : event.preventDefault()" class="badge badge-danger">Delete</a>
-                                            <a href="/role/edit/<?= $role['id']; ?>" class="badge badge-success">Edit</a>
+                                            cek
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

@@ -102,4 +102,16 @@ class Role extends BaseController
 
         return redirect()->to('role')->with('message', 'Delete role successfuly');
     }
+
+    public function menuaccess($id){
+
+        $data = [
+            'title' => "Menu Access",
+            'role' => $this->role->find($id),
+            'menus' => $this->role->db->table('user_menu')->get()->getResultArray()
+        ];
+
+        return view('dashboard/role/menuaccess', $data);
+
+    }
 }

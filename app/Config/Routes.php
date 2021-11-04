@@ -45,6 +45,7 @@ $routes->group('', ['filter' => 'menu'], function () use ($routes) {
     $routes->get('/role/delete/(:num)', 'Role::delete/$1');
     $routes->get('/role/edit/(:num)', 'Role::edit/$1');
     $routes->get('/role/update/(:num)', 'Role::update/$1');
+    $routes->get('/role/menuaccess/(:num)', 'Role::menuaccess/$1');
 
     $routes->get('/submenu', 'Submenu::index');
     $routes->get('/submenu/create', 'Submenu::create');
@@ -57,6 +58,11 @@ $routes->group('', ['filter' => 'menu'], function () use ($routes) {
     $routes->get('/admin/user/create', 'User::create');
     $routes->post('/admin/user/store', 'User::store');
     $routes->post('/admin/user/delete/(:num)', 'User::delete/$1');
+
+    $routes->get('/manu', 'Menu::index');
+    $routes->get('/manu/create', 'Menu::create');
+    $routes->post('/manu/store', 'Menu::store');
+    $routes->get('/manu/delete/(:num)', 'Menu::delete/$1');
 });
 
 $routes->group('', ['filter' => 'guest'], function () use ($routes) {
