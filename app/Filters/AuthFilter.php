@@ -35,25 +35,33 @@ class AuthFilter implements FilterInterface
         $this->authenticate($id);
     }
 
-    public function authenticate($id){
+    public function authenticate($id)
+    {
         helper('auth_helper');
+        helper('cookie');
 
-        $db = db_connect();
+        if (auth() == null) {
+            $db = db_connect();
 
-        $data = $db->table('users')->select([
-            'users.id',
-            'users.name',
-            'users.email',
-            'users.role',
-            'user_role.name as role_name',
-            'users.image',
-            'users.remember_token',
-            'users.verified_at',
-            'users.created_at',
-            'users.updated_at'
-        ])->join('user_role', 'users.role = user_role.id')->where(['users.id' => $id])->get()->getRowArray();
-        
-        setAuth($data);
+            $data = $db->table('users')->select([
+                'users.id',
+                'users.name',
+                'users.email',
+                'users.role',
+                'user_role.name as role_name',
+                'users.image',
+                'users.remember_token',
+                'users.verified_at',
+                'users.created_at',
+                'users.updated_at'
+            ])->join('user_role', 'users.role = user_role.id')->where(['users.id' => $id])->get()->getRowArray();
+
+            if($data['remember_token'] != null){
+                set_cookie('remember_token', $data['remember_token']);
+            }
+
+            setAuth($data);
+        }
     }
 
 

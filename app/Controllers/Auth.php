@@ -17,6 +17,7 @@ class Auth extends BaseController
     public function login()
     {
 
+
         $data = [
             'title' => 'Login',
             'validation' => \Config\Services::validation()
@@ -27,6 +28,7 @@ class Auth extends BaseController
 
     public function loginStore()
     {
+
         if (!$this->validate([
             'email' => [
                 'rules' => 'required'
@@ -44,22 +46,38 @@ class Auth extends BaseController
 
         $user = $this->user->where(['email' => $email])->first();
 
-        if($user){
-            if(password_verify($password, $user['password'])){
+        if ($user) {
+            if (password_verify($password, $user['password'])) {
 
                 session()->set('id', $user['id']);
                 session()->set('role', $user['role']);
+                $token = random_string('alnum', 40);
 
-                return redirect()->to('/');
+                if ($this->request->getPost('remember_token')) {
 
-            }else{
+
+                    $this->user->update($user['id'], [
+                        'remember_token' => $token
+                    ]);
+
+                    return redirect()->to('/')->setCookie('remember_token', $token);
+                }else{
+                    
+                    $this->user->update($user['id'], [
+                        'remember_token' => null
+                    ]);
+
+                    return redirect()->to('/');
+
+                }
+                
+
+            } else {
                 return redirect()->back()->with('error', 'Email or password is wrong!');
             }
-        }else{
+        } else {
             return redirect()->back()->with('error', 'Email or password is wrong!');
         }
-
-
     }
 
     public function register()
@@ -117,11 +135,15 @@ class Auth extends BaseController
         }
     }
 
-    public function logout(){
+    public function logout()
+    {
+
+        $this->user->update(auth('id'), [
+            'remember_token' => null
+        ]);
 
         session()->destroy();
 
-        return redirect()->to('login')->with('message', 'Logout successfully');
-
+        return redirect()->to('login')->with('message', 'Logout successfully')->deleteCookie('remember_token');
     }
 }

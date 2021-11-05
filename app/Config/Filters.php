@@ -5,6 +5,7 @@ namespace Config;
 use App\Filters\AuthFilter;
 use App\Filters\GuestFilter;
 use App\Filters\MenuFilter;
+use App\Filters\RememberFilter;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
@@ -24,7 +25,8 @@ class Filters extends BaseConfig
         'honeypot' => Honeypot::class,
         'guest' => GuestFilter::class,
         'auth' =>  AuthFilter::class,
-        'menu' => MenuFilter::class
+        'menu' => MenuFilter::class,
+        'remember' => RememberFilter::class
     ];
 
     /**
@@ -37,6 +39,7 @@ class Filters extends BaseConfig
         'before' => [
             'honeypot',
             // 'csrf',
+            'remember',
             'auth' => ['except' => ['login', 'register']]
         ],
         'after' => [

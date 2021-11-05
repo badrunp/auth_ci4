@@ -64,6 +64,14 @@
                                 </div>
                             <?php endif; ?>
                         </div>
+                        <div class="row pb-30">
+                            <div class="col-6">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" name="remember_token" class="custom-control-input" id="customCheck1">
+                                    <label class="custom-control-label" for="customCheck1">Remember</label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="input-group mb-0">

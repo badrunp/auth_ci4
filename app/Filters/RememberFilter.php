@@ -25,9 +25,41 @@ class RememberFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        //
-    }
 
+        helper('cookie');
+        helper('auth');
+        $db = db_connect();
+        $token = get_cookie('remember_token');
+
+        $id = session()->get('id');
+        $role = session()->get('role');
+        
+        if($token){
+            $data = $db->table('users')->select([
+                'users.id',
+                'users.name',
+                'users.email',
+                'users.role',
+                'user_role.name as role_name',
+                'users.image',
+                'users.remember_token',
+                'users.verified_at',
+                'users.created_at',
+                'users.updated_at'
+            ])->join('user_role', 'users.role = user_role.id')->where(['users.remember_token' => $token])->get()->getRowArray();
+            
+            if($data){
+                setAuth($data);
+
+                if($id && $role){
+                    session()->set('id', $data['id']);
+                    session()->set('role', $data['role']);
+                }
+
+            }
+        }
+    }
+    
     /**
      * Allows After filters to inspect and modify the response
      * object as needed. This method does not allow any way
