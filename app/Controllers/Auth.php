@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use CodeIgniter\I18n\Time;
 
 class Auth extends BaseController
 {
@@ -60,7 +61,7 @@ class Auth extends BaseController
                         'remember_token' => $token
                     ]);
 
-                    return redirect()->to('/')->setCookie('remember_token', $token);
+                    return redirect()->to('/')->setCookie('remember_token', $token, 60 * 60 * 24);
                 }else{
                     
                     $this->user->update($user['id'], [
