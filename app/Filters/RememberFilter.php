@@ -51,7 +51,7 @@ class RememberFilter implements FilterInterface
             if($data){
                 setAuth($data);
 
-                if($id && $role){
+                if(!$id && !$role){
                     session()->set('id', $data['id']);
                     session()->set('role', $data['role']);
                 }
