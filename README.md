@@ -1,1 +1,1 @@
-# Authenticate with ci4
+# Authenticate CI4
